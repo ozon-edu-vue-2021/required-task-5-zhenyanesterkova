@@ -1,12 +1,11 @@
 <template>
   <div class="catalog">
-    {{ BasketPriceSum }}
-    <div class="catalogItem" v-for="product in products" :key="product.id">
-      <img :src="product.img" alt="Фото товара" class="productImg" />
+    <div v-for="product in products" :key="product.id" class="catalogItem">
+      <img class="productImg" :src="product.img" alt="Фото товара" />
 
       <h5 class="productTitle">{{ product.dish }}</h5>
       <p class="productPrice">{{ product.price }}</p>
-      <button @click="addProdactInBasket(product)" class="productBuy">
+      <button class="productBuy" @click="addProdactInBasket(product)">
         В корзину
       </button>
     </div>
@@ -21,13 +20,12 @@ export default {
   computed: {
     ...mapGetters({
       products: "getProducts",
-      BasketPriceSum: "basketPriceSum",
     }),
   },
   methods: {
-    ...mapActions(["updateBasket"]),
+    ...mapActions(["addToBasketAction"]),
     addProdactInBasket(product) {
-      this.updateBasket(product);
+      this.addToBasketAction(product);
     },
   },
 };

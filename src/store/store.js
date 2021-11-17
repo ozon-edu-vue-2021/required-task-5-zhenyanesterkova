@@ -32,8 +32,11 @@ export default new Vuex.Store({
       });
       ctx.commit("updateProducts", products);
     },
-    updateBasket(ctx, productInBasket){
-      ctx.commit("updateBasket", productInBasket);
+    addToBasketAction(ctx, productInBasket){
+      ctx.commit("addToBasket", productInBasket);
+    },
+    deleteFromBasketAction(ctx, productInBasket) {
+      ctx.commit("deleteFromBasket", productInBasket);
     }
   },
   getters: {
@@ -56,8 +59,14 @@ export default new Vuex.Store({
     updateProducts(state, products){
       state.products = products;
     },
-    updateBasket(state, basket) {
-      state.basket.push(basket);
+    addToBasket(state, basketItem) {
+      state.basket.push(basketItem);
+    },
+    deleteFromBasket(state, basketItem) {
+      const index = state.basket.indexOf(basketItem, 0);
+      if (index !== -1) {
+        state.basket.splice(index, 1);
+      }
     },
   }
 })
