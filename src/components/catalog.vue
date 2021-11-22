@@ -5,7 +5,7 @@
 
       <h5 class="productTitle">{{ product.dish }}</h5>
       <p class="productPrice">{{ product.price }}</p>
-      <button class="productBuy" @click="addProdactInBasket(product)">
+      <button class="productBuy" @click="addProdactInBasket(product, $event)">
         В корзину
       </button>
     </div>
@@ -24,7 +24,8 @@ export default {
   },
   methods: {
     ...mapActions(["addToBasketAction"]),
-    addProdactInBasket(product) {
+    addProdactInBasket(product, event) {
+      event.target.disabled = true;
       this.addToBasketAction(product);
     },
   },

@@ -5,6 +5,7 @@
 
       <h5 class="productTitle">{{ product.dish }}</h5>
       <p class="productPrice">{{ product.price }} ₽</p>
+      <p class="productCount">{{ product.count }} шт</p>
       <button class="productDelete" @click="deleteProdactFromBasket(product)">
         &#215;
       </button>

@@ -20,6 +20,7 @@ export default new Vuex.Store({
   state: {
     products:[],
     basket:[],
+    countOfProductInBasket:0,
   },
   actions: {
     async loadProducts(ctx) {
@@ -44,14 +45,15 @@ export default new Vuex.Store({
       return state.products;
     },
     getBasket(state){
-      return state.basket
+      return state.basket;
     },
     getBasketCount(state){
-      return state.basket.length;
+      return state.countOfProductInBasket;
     },
     basketPriceSum(state){
-        return state.basket.reduce(function (sum, current) { 
-          return (sum + +current.price) 
+        return state.basket.reduce(function (sum, current) {
+          let currentSum = current.price * current.count;
+          return (sum + currentSum);
         }, 0);
     }
   },
@@ -60,7 +62,14 @@ export default new Vuex.Store({
       state.products = products;
     },
     addToBasket(state, basketItem) {
-      state.basket.push(basketItem);
+      let index = state.basket.indexOf(basketItem, 0);
+      if (index >= 0) {
+        state.basket[index].count = state.basket[index].count + 1;
+      } else {
+        basketItem.count = 1;
+        state.basket.push(basketItem);
+      }
+      state.countOfProductInBasket = state.countOfProductInBasket+1;
     },
     deleteFromBasket(state, basketItem) {
       const index = state.basket.indexOf(basketItem, 0);
